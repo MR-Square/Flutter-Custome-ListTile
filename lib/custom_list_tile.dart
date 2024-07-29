@@ -1,86 +1,93 @@
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-  final Widget? leading; // Optional leading widget
-  final Text? title; // Required title text
-  final Widget? subTitle; // Optional subtitle text
-  final Function onTap; // Optional tap event handler
-  final Function? onLongPress; // Optional long press event handler
-  final Function? onDoubleTap; // Optional double tap event handler
-  final Widget? trailing; // Optional trailing widget
-  final Color? tileColor; // Optional tile background color
-  final double? height; // Required height for the custom list tile
+  /// Optional leading widget
+  final Widget? leading;
+
+  /// Required title text
+  final Text? title;
+
+  /// Optional subtitle text
+  final Widget? subTitle;
+
+  /// Optional tap event handler
+  final Function? onTap;
+
+  /// Optional long press event handler
+  final Function? onLongPress;
+
+  /// Optional double tap event handler
+  final Function? onDoubleTap;
+
+  /// Optional trailing widget
+  final Widget? trailing;
+
+  /// Optional tile background color
+  final Color? tileColor;
+
+  /// Required card background color
+  final Color shadowColor;
+
+  /// Required height for the custom list tile
+  final double? height;
 
   // Constructor for the custom list tile
   const CustomListTile({
     super.key,
+    required this.title,
+    required this.shadowColor,
+    required this.height,
     this.leading,
-    this.title,
     this.subTitle,
-    required this.onTap,
+    this.onTap,
     this.onLongPress,
     this.onDoubleTap,
     this.trailing,
     this.tileColor,
-    this.height, // Make height required for clarity
   });
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      // Material design container for the list tile
-
       color: tileColor, // Set background color if provided
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
-          // Tappable area with event handlers
-          onTap: () {
-            onTap();
-          }, // Tap event handler
-          onDoubleTap: () => onDoubleTap, // Double tap event handler
-          onLongPress: () => onLongPress, // Long press event handler
+          onTap: () => onTap, // Tap event handler
+          onDoubleTap: () => onDoubleTap,
+          onLongPress: () => onLongPress,
           child: Container(
-            // Constrain the size of the list tile
-            height: height, // Set custom height from constructor
+            height: height,
             decoration: BoxDecoration(
-              // color: AppColors.bgColor,
+              color: tileColor,
               borderRadius: BorderRadius.circular(10),
-              boxShadow: const  [
+              boxShadow: [
                 BoxShadow(
-                  // color: AppColors.grey,
+                  color: shadowColor,
                   blurRadius: 5,
-                  offset: Offset(2, 2),
+                  offset: const Offset(2, 2),
                 ),
               ],
             ),
             child: Row(
-              // Row layout for list item content
               children: [
                 Padding(
-                  // Padding for the leading widget
                   padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                  child: leading, // Display leading widget
+                  child: leading,
                 ),
                 Expanded(
-                  // Expanded section for title and subtitle
                   child: Column(
-                    // Column layout for title and subtitle
                     crossAxisAlignment:
                         CrossAxisAlignment.start, // Align text left
                     children: [
-                      title ?? const SizedBox(), // Display title or empty space
-                      const SizedBox(
-                          height: 10), // Spacing between title and subtitle
-                      subTitle ??
-                          const SizedBox(), // Display subtitle or empty space
+                      title ?? const SizedBox(),
+                      subTitle ?? const SizedBox(),
                     ],
                   ),
                 ),
                 Padding(
-                  // Padding for the trailing widget
-                  padding: const EdgeInsets.fromLTRB(10.0, 12, 8, 12),
-                  child: trailing, // Display trailing widget
+                  padding: const EdgeInsets.fromLTRB(10.0, 12, 10, 12),
+                  child: trailing,
                 )
               ],
             ),
